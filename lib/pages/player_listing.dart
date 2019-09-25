@@ -14,7 +14,7 @@ class PlayerListing extends StatelessWidget {
       builder: (context, state) {
         if (state is PlayerUninitializedState) {
           return Message(
-              message: "Please select a country flag");
+              message: "Unintialised State");
         } else if (state is PlayerEmptyState) {
           return Message(message: "No Players found");
         } else if (state is PlayerErrorState) {
@@ -32,44 +32,47 @@ class PlayerListing extends StatelessWidget {
 
   Widget buildPlayersList(List<Players> players) {
     return Expanded(
-      child: ListView.separated(
-        itemBuilder: (BuildContext context, index) {
-          Players player = players[index];
-          return ListTile(
-            leading: CircleAvatar(
-              child: Image.network(
-                player.headshot.imgUrl,
-              ),
-              radius: 30.0,
-              backgroundColor: Colors.blue[50],
+        child: ListView.separated(
+    itemBuilder: (BuildContext context, index) {
+      Players player = players[index];
+      return Container(
+        color: Colors.white30,
+        child: ListTile(
+          leading: CircleAvatar(
+            child: Image.network(
+              player.headshot.imgUrl,
             ),
-            title: Text(
-              player.name,
-              style: TextStyle(fontSize: 22.0, color: Colors.black),
-            ),
-            subtitle: Text(
-              "Age: " + player.age.toString(),
-              style: TextStyle(fontSize: 16.0, color: Colors.black87),
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.chevron_right),
-              onPressed: () {
-                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PlayerProfile(player)));
-              },
-            ),
-          );
-        },
-        separatorBuilder: (BuildContext context, index) {
-          return Divider(
-            height: 8.0,
-            color: Colors.transparent,
-          );
-        },
-        itemCount: players.length,
-      ),
-    );
+            radius: 30.0,
+            backgroundColor: Colors.blue[50],
+          ),
+          title: Text(
+            player.name,
+            style: TextStyle(fontSize: 22.0, color: Colors.black),
+          ),
+          subtitle: Text(
+            "Age: " + player.age.toString(),
+            style: TextStyle(fontSize: 16.0, color: Colors.black87),
+          ),
+          trailing: IconButton(
+            icon: Icon(Icons.chevron_right),
+            onPressed: () {
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PlayerProfile(player)));
+            },
+          ),
+        ),
+      );
+    },
+    separatorBuilder: (BuildContext context, index) {
+      return Divider(
+        height: 8.0,
+        color: Colors.transparent,
+      );
+    },
+    itemCount: players.length,
+        ),
+      );
   }
 }

@@ -15,7 +15,7 @@ class PlayerListingBloc extends Bloc<PlayerListingEvent, PlayerListingState> {
     // TODO: implement transformEvents
     return super.transformEvents(
       (events as Observable<PlayerListingEvent>).debounce(
-        (_) => TimerStream(true, const Duration(milliseconds: 250)))
+        (_) => TimerStream(true, const Duration(seconds: 3)))
       ,next,
     );
   }
